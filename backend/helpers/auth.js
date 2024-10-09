@@ -1,9 +1,11 @@
+'use strict'
+
 const { response } = require('express');
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var secret = '070320';
-var user1 = require('../models/usuarios');
-var user2 = '';
+var secret = "070320";
+var useer = require('../models/usuarios');
+var user = false;
 
 function generarToken(usuario){
     var payload = {
@@ -11,17 +13,17 @@ function generarToken(usuario){
         nombre: usuario.nombre,
         email: usuario.email,
         iat: moment().unix(),
-        exp: moment().add(1, 'minuto').unix()
+        exp: moment().add(1, 'minutos').unix
     }
-    user2 = usuario.rol;
+    user = usuario.rol;
     return jwt.encode(payload, secret);
 }
 
 function validarToken(req, resp, nextStep){
     try{
-        if(user2 == 'coach'){
+        if(user == true){
             var tokenEnviadoPorUsuario = req.headers.authorization;
-            var tokenLimpio = tokenEnviadoPorUsuario.replace('Token ', '');
+            var tokenLimpio = tokenEnviadoPorUsuario.replace('Bearer ', '');
             var payload = jwt.decode(tokenLimpio, secret);
             req.headers.userId = payload.sub;
             nextStep();
