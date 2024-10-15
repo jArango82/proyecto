@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoachFit - Seguimiento</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #333;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1rem;
+            font-size: 0.875rem;
+        }
+        nav a.active {
+            color: #dc2626;
+        }
+        main {
+            padding: 2rem;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .accordion {
+            max-width: 768px;
+            margin: 0 auto;
+        }
+        .accordion-item {
+            background-color: #111;
+            border: 1px solid #333;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .accordion-header {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .accordion-content {
+            display: none;
+            padding: 1rem;
+        }
+        .member-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .member-card {
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        .member-info {
+            flex-grow: 1;
+        }
+        .progress-bar {
+            background-color: #333;
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #dc2626;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">
+            <i data-lucide="dumbbell"></i>
+            <span>CoachFit</span>
+        </a>
+        <nav>
+            <a href="./index.html">Inicio</a>
+            <a href="./grupos.html">Grupos</a>
+            <a href="./seguimiento.html" class="active">Seguimiento</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Seguimiento de Progreso</h1>
+        <div class="accordion" id="groupsAccordion"></div>
+    </main>
+
+    <script>
+        const groups = [
+            {
+                id: 1,
+                name: "Entrenamiento de Fuerza",
+                members: [
+                    { id: 1, name: "María G.", avatar: "/placeholder.svg?height=40&width=40", progress: 75 },
+                    { id: 2, name: "Carlos R.", avatar: "/placeholder.svg?height=40&width=40", progress: 60 },
+                    { id: 3, name: "Laura M.", avatar: "/placeholder.svg?height=40&width=40", progress: 90 },
+                ]
+            },
+            {
+                id: 2,
+                name: "Nutrición y Dieta",
+                members: [
+                    { id: 4, name: "Ana L.", avatar: "/placeholder.svg?height=40&width=40", progress: 80 },
+                    { id: 5, name: "Juan P.", avatar: "/placeholder.svg?height=40&width=40", progress: 65 },
+                ]
+            },
+            {
+                id: 3,
+                name: "Cardio y Resistencia",
+                members: [
+                    { id: 6, name: "Pedro S.", avatar: "/placeholder.svg?height=40&width=40", progress: 85 },
+                    { id: 7, name: "Sofia R.", avatar: "/placeholder.svg?height=40&width=40", progress: 70 },
+                ]
+            }
+        ];
+
+        function renderGroups() {
+            const accordion = document.getElementById('groupsAccordion');
+            accordion.innerHTML = '';
+
+            groups.forEach(group => {
+                const accordionItem = document.createElement('div');
+                accordionItem.className = 'accordion-item';
+                accordionItem.innerHTML = `
+                    <div class="accordion-header">${group.name}</div>
+                    <div class="accordion-content">
+                        <h3>Integrantes y Progreso</h3>
+                        <div class="member-list">
+                            ${renderMembers(group.members)}
+                        </div>
+                    </div>
+                `;
+                accordion.appendChild(accordionItem);
+            });
+
+            setupAccordion();
+        }
+
+        function renderMembers(members) {
+            return members.map(member => `
+                <div class="member-card">
+                    <img src="${member.avatar}" alt="${member.name}" class="avatar">
+                    <div class="member-info">
+                        <strong>${member.name}</strong>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${member.progress}%"></div>
+                        </div>
+                        <span>${member.progress}%</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupAccordion() {
+            const headers = document.querySelectorAll('.accordion-header');
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+        }
+
+        // Inicializar la página
+        renderGroups();
+        lucide.createIcons();
+    </script>
+</body>
+</html>
