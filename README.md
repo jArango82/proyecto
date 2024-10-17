@@ -33,8 +33,8 @@ Instrucciones de Uso:
 
 
 *Seguimiento de Progreso
-    Accede a la sección de "Seguimiento" para ver tu progreso o el de tus clientes.
-    Actualiza los hitos alcanzados para mantener el porcentaje de avance al día.
+  - Accede a la sección de "Seguimiento" para ver tu progreso o el de tus clientes.
+  - Actualiza los hitos alcanzados para mantener el porcentaje de avance al día.
 
 
 
