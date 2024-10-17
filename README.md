@@ -40,7 +40,7 @@ Instrucciones de Uso:
 
 Tecnologías Utilizadas
 
-Frontend: Angular
-Backend: Node.js con Express
-Base de Datos: MongoDB
-Autenticación: JWT
+- Frontend: Angular
+- Backend: Node.js con Express
+- Base de Datos: MongoDB
+- Autenticación: JWT
